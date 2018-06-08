@@ -1,0 +1,11 @@
+{
+  "port": 80,
+  "noAuth": true,
+  "address": "",
+  "database": "/database.db",
+  "scope": "/share",
+  "allowCommands": false,
+  "allowEdit": true,
+  "allowNew": true,
+  "commands": []
+}

@@ -1,0 +1,18 @@
+# NetBase wiki container
+
+version: '3'
+services:
+  wiki:
+    image: 'bitnami/dokuwiki:latest'
+    ports:
+      - '80:80'
+      - '443:443'
+    volumes:
+      - '/opt/netbase/data/wiki:/bitnami'
+      - '/opt/netbase/modules/wiki/netbase-help:/opt/bitnami/dokuwiki/netbase'
+    environment:
+      - DOKUWIKI_USERNAME=admin
+      - DOKUWIKI_PASSWORD=admin
+      - DOKUWIKI_FULL_NAME=admin
+      - DOKUWIKI_WIKI_NAME=NetBase Wiki
+

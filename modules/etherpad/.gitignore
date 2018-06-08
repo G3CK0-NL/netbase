@@ -1,0 +1,4 @@
+# Stack: etherpad
+#
+# Prevent the node symlink from ending up in the git repo
+ep_etherpad-lite

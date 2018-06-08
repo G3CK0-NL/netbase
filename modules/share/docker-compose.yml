@@ -1,0 +1,43 @@
+# NetBase file container
+#
+#   SHARE=<name;/path>[;browse;readonly;guest;users;admins;writelist;comment]
+#	Configure a share
+#	required arg: "<name>;</path>"
+#	<name> is how it's called for clients
+#	<path> path to share
+#     NOTE: for the default values, just leave blank
+#	[browsable] default:'yes' or 'no'
+#	[readonly] default:'yes' or 'no'
+#	[guest] allowed default:'yes' or 'no'
+#	[users] allowed default:'all' or list of allowed users
+#	[admins] allowed default:'none' or list of admin users
+#	[writelist] list of users that can write to a RO share
+#	[comment] description of share
+
+version: '3'
+services:
+  samba:
+    image: 'dperson/samba:latest'
+    ports:
+#      - '137:137/udp'
+#      - '138:138/udp'
+      - '139:139'
+      - '445:445'
+    volumes:
+      - '/opt/netbase/data/share:/data'
+    environment:
+#      - NMBD=true
+      - WORKGROUP=NETBASE
+      - TZ=MET-1METDST
+      - SHARE=Share;/data;yes;no;yes;all;;;NetBase share
+      - RECYCLE=false
+      - SMB=true
+      - USERID=1000
+      - GROUPID=1000
+  web:
+    image: 'hacdias/filemanager'
+    ports:
+      - '81:80'
+    volumes:
+      - '/opt/netbase/data/share:/share'
+      - '/opt/netbase/modules/share/webconfig.json:/config.json'

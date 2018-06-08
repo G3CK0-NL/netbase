@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>NetBase start page</title>
+    <style>
+      body {
+        background: #233237;
+        color: white;
+	font-family: Arial, Helvetica, sans-serif;
+	margin: 30px 100px;
+      }
+      a {
+        text-decoration: none;
+      }
+      a:link, a:visited {
+        color: #EAC67A;
+      }
+      a:hover, a:active {
+        color: #984B43;
+      }
+      p {
+	margin: 50px 0px 0px 0px;
+      }
+    </style>
+    <script language="javascript">
+      var ip = location.host;
+      if (ip == "")
+        ip = "&lt;your-ip&gt;";
+      function printLink(prefix, postfix) {
+        link = prefix + ip + postfix;
+        document.write("<a href=\"" + link + "\" target=\"_new\">" + link + "</a>" );
+      }
+    </script>
+  </head>
+  <body>
+    <h1>Welcome to NetBase</h1>
+    NetBase is a collaboration platform. It is very light-weight, modular and KISS: keep-it-simple & stupid.<br />
+    Goal: to have a central place on the network where a team can share files, information and progress.<br />
+    <br />
+    Visit our GitHub at: <a href="https://www.github.com/G3CK0-NL/netbase" target="_new">www.github.com/G3CK0-NL/netbase</a>.<br />
+    <br />
+    <br />
+    <br />
+    The following services are available:<br />
+    <ul>
+      <li>File share<br />
+        Samba: <script>printLink("smb://", "");</script> (anonymous access)<br />
+        Web: <script>printLink("http://", ":81");</script><br />
+        <br />
+      <li>Wiki (DocuWiki)<br />
+        <script>printLink("http://", "");</script> (credentials: admin:admin)<br />
+        <br />
+      <li>Live editing (Etherpad)<br />
+        <script>printLink("http://", ":9001");</script><br />
+        Admin login: <script>printLink("http://", ":9001/admin/");</script> (credentials: admin:admin)<br />
+    </ul>
+    <br />
+    <br />
+    The following management services are available:<br />
+    <ul>
+      <li>Docker control panel (Portainer)<br />
+        <script>printLink("http://", ":9000");</script><br />
+        <br />
+      <li>System control panel (Cockpit), if installed<br />
+        <script>printLink("https://", ":9090");</script> (credentials: use system creds)<br />
+    </ul>
+  </body>
+</html>

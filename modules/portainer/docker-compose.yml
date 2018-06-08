@@ -1,0 +1,12 @@
+# NetBase portainer container
+
+version: '3'
+services:
+  portainer:
+    image: 'portainer/portainer:latest'
+    command: --no-auth -H unix:///var/run/docker.sock
+    ports:
+      - '9000:9000'
+    volumes:
+      - '/opt/netbase/data/portainer:/data'
+      - '/var/run/docker.sock:/var/run/docker.sock'

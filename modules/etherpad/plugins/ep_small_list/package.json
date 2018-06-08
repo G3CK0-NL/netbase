@@ -1,0 +1,53 @@
+{
+  "_from": "ep_small_list",
+  "_id": "ep_small_list@0.2.0",
+  "_inBundle": false,
+  "_integrity": "sha1-iK3nfAeJLAg1ny/WohD+UH1A4zU=",
+  "_location": "/ep_small_list",
+  "_phantomChildren": {},
+  "_requested": {
+    "type": "tag",
+    "registry": true,
+    "raw": "ep_small_list",
+    "name": "ep_small_list",
+    "escapedName": "ep_small_list",
+    "rawSpec": "",
+    "saveSpec": null,
+    "fetchSpec": "latest"
+  },
+  "_requiredBy": [
+    "#USER",
+    "/"
+  ],
+  "_resolved": "https://registry.npmjs.org/ep_small_list/-/ep_small_list-0.2.0.tgz",
+  "_shasum": "88ade77c07892c08359f2fd6a210fe507d40e335",
+  "_spec": "ep_small_list",
+  "_where": "/opt/etherpad-lite",
+  "author": {
+    "name": "Spruce",
+    "email": "dev@spruce.de",
+    "url": "Felix Fichte"
+  },
+  "bugs": {
+    "url": "https://github.com/spruce/ep_small_list/issues"
+  },
+  "bundleDependencies": false,
+  "deprecated": false,
+  "description": "Adds a list of all pads on the index-page",
+  "homepage": "https://github.com/spruce/ep_small_list#readme",
+  "keywords": [
+    "index",
+    "list"
+  ],
+  "license": "BSD",
+  "main": "index.js",
+  "name": "ep_small_list",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/spruce/ep_small_list.git"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "version": "0.2.0"
+}

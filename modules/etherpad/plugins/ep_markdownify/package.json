@@ -1,0 +1,62 @@
+{
+  "_from": "ep_markdownify",
+  "_id": "ep_markdownify@0.0.3",
+  "_inBundle": false,
+  "_integrity": "sha1-C7dV2BbP6Z6+NbP4t1ICMKaebsE=",
+  "_location": "/ep_markdownify",
+  "_phantomChildren": {},
+  "_requested": {
+    "type": "tag",
+    "registry": true,
+    "raw": "ep_markdownify",
+    "name": "ep_markdownify",
+    "escapedName": "ep_markdownify",
+    "rawSpec": "",
+    "saveSpec": null,
+    "fetchSpec": "latest"
+  },
+  "_requiredBy": [
+    "#USER",
+    "/"
+  ],
+  "_resolved": "https://registry.npmjs.org/ep_markdownify/-/ep_markdownify-0.0.3.tgz",
+  "_shasum": "0bb755d816cfe99ebe35b3f8b7520230a69e6ec1",
+  "_spec": "ep_markdownify",
+  "_where": "/opt/etherpad-lite",
+  "author": {
+    "name": "f0i",
+    "email": "f0i.etherpad@projects.f0i.de"
+  },
+  "bugs": {
+    "url": "https://github.com/f0i/etherpad-plugins/issues"
+  },
+  "bundleDependencies": false,
+  "contributors": [
+    {
+      "name": "Martin Sigloch",
+      "email": "martin.etherpad@projects.f0i.de"
+    },
+    {
+      "name": "Matthias Bartelmeß",
+      "email": "mba@fourplusone.de"
+    },
+    {
+      "name": "John McLear",
+      "email": "john@mclear.co.uk"
+    }
+  ],
+  "dependencies": {},
+  "deprecated": false,
+  "description": "Inline markdown formating.  Format headings, show images, highlight lists, tables and more.",
+  "devDependencies": {},
+  "engines": {
+    "node": "*"
+  },
+  "homepage": "https://projects.f0i.de/etherpad/markdownify.md",
+  "name": "ep_markdownify",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/f0i/etherpad-plugins.git"
+  },
+  "version": "0.0.3"
+}
