@@ -33,27 +33,27 @@ When installing, you have a choice between only installing NetBase or doing a Ne
 
 # Use
 
-After the installation, go to the NetBase landing page for basic guidance:
-http://<your-ip>/netbase
+After the installation, go to the NetBase landing page for basic guidance:  
+http://your-ip/netbase
 
 The following modules are at your disposal:
 
 * Portainer - to manage the platform
-  * http://<your-ip>:9000
+  * http://your-ip:9000
   * Created using: [portainer/portainer](https://hub.docker.com/r/portainer/portainer)
 * Wiki - to store and manage information and progress
-  * http://<your-ip>
+  * http://your-ip
   * Created using: [bitnami/dokuwiki](https://hub.docker.com/r/bitnami/dokuwiki)
 * File share - to share files :)
-  * smb://<your-ip>
-  * http://<your-ip>:81
+  * smb://your-ip
+  * http://your-ip:81
   * Created using: [dperson/samba](https://hub.docker.com/r/dperson/samba) and [hacdias/filemanager](https://hub.docker.com/r/hacdias/filemanager)
 * Etherpad - to collaborate on tasks
-  * http://<your-ip>:9001
-  * Admin login: http://<your ip>:9001/admin (using credentials: admin:admin)
+  * http://your-ip:9001
+  * Admin login: http://your-ip:9001/admin (using credentials: admin:admin)
   * Created using: [tvelocity/etherpad-lite](https://hub.docker.com/r/tvelocity/etherpad-lite) and [mysql](https://hub.docker.com/_/mysql)
 * Cockpit* - to manage the system NetBase is running on
-  * https://<your-ip>:9090
+  * https://your-ip:9090
   * Created using: [cockpit](http://cockpit-project.org)
 
 
@@ -83,6 +83,7 @@ An **image** is a 'blueprint' for a container. A **container** is software runni
     * (module name)/ - a module data folder, contains any data for this module (for example the shared files of the file share module).
   * install.sh - the installer script
   * README.md - This readme file
+  * LICENSE - Legal stuff
 
 
 # Clustering
@@ -116,15 +117,15 @@ To 'reset' any modules to a clean state: delete all files in the /opt/netbase/da
 If the above doesn't fix the problem: just rerun the installer script. This should fix any and all problems. It will never delete anything from the /opt/netbase/data directory so your data will be safe.
 
 
-# Changes in this version
+# The current version
 
-Modules implemented
+Modules implemented:
 - [x] Portainer
 - [x] Wiki
 - [x] Share
 - [x] Etherpad
 
-Functionality implemented
+Functionality implemented:
 - [x] Installer script
 - [x] Reinstall functionality in installer script
 - [x] NetBase landing page
