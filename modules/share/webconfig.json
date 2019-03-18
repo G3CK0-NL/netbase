@@ -1,9 +1,11 @@
 {
   "port": 80,
-  "noAuth": true,
+  "baseURL": "",
   "address": "",
+  "log": "stdout",
   "database": "/database.db",
-  "scope": "/share",
+  "root": "/share",
+  "noAuth": true,
   "allowCommands": false,
   "allowEdit": true,
   "allowNew": true,

@@ -35,9 +35,10 @@ services:
       - USERID=1000
       - GROUPID=1000
   web:
-    image: 'hacdias/filemanager'
+    image: 'filebrowser/filebrowser'
     ports:
       - '81:80'
     volumes:
       - '/opt/netbase/data/share:/share'
-      - '/opt/netbase/modules/share/webconfig.json:/config.json'
+      - '/opt/netbase/modules/share/webconfig.json:/.filebrowser.json'
+
