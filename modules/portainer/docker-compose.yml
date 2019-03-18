@@ -4,6 +4,7 @@ version: '3'
 services:
   portainer:
     image: 'portainer/portainer:latest'
+    restart: always
     command: --no-auth -H unix:///var/run/docker.sock
     ports:
       - '9000:9000'

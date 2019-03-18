@@ -18,6 +18,7 @@ version: '3'
 services:
   etherpad:
     image: 'tvelocity/etherpad-lite'
+    restart: always
     ports:
       - '9001:9001'
     volumes:
@@ -33,6 +34,7 @@ services:
 #    image: 'mysql'
 # Not using the default mysql image (currently 8.0) because it results in errors
 #    command: mysqld --default-authentication-plugin=mysql_native_password
+    restart: always
     ports:
       - '3306:3306'
     volumes:

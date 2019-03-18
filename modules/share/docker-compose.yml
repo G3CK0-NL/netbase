@@ -18,6 +18,7 @@ version: '3'
 services:
   samba:
     image: 'dperson/samba:latest'
+    restart: always
     ports:
 #      - '137:137/udp'
 #      - '138:138/udp'
@@ -36,6 +37,7 @@ services:
       - GROUPID=1000
   web:
     image: 'filebrowser/filebrowser'
+    restart: always
     ports:
       - '81:80'
     volumes:

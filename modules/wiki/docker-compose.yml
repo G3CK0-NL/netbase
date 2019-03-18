@@ -4,6 +4,7 @@ version: '3'
 services:
   wiki:
     image: 'bitnami/dokuwiki:latest'
+    restart: always
     ports:
       - '80:80'
       - '443:443'
