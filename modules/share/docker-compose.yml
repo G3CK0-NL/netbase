@@ -15,17 +15,23 @@
 #	[comment] description of share
 
 version: '3'
+
+
 services:
-  samba:
+
+  share-samba:
     image: 'dperson/samba:latest'
-    restart: always
+    # This container doesnt seem to use version numbering
+    hostname: share-samba
+    container_name: share-samba
+    restart: unless-stopped
     ports:
 #      - '137:137/udp'
 #      - '138:138/udp'
       - '139:139'
       - '445:445'
     volumes:
-      - '/opt/netbase/data/share:/data'
+      - '../../data/share:/data'
     environment:
 #      - NMBD=true
       - WORKGROUP=NETBASE
@@ -35,12 +41,15 @@ services:
       - SMB=true
       - USERID=1000
       - GROUPID=1000
-  web:
-    image: 'filebrowser/filebrowser'
-    restart: always
-    ports:
-      - '81:80'
-    volumes:
-      - '/opt/netbase/data/share:/share'
-      - '/opt/netbase/modules/share/webconfig.json:/.filebrowser.json'
 
+  share-web:
+    image: 'filebrowser/filebrowser:v2.8.0-alpine'
+    hostname: share-web
+    container_name: share-web
+    restart: unless-stopped
+    user: "1000:1000"
+    ports:
+      - '81:8080'
+    volumes:
+      - '../../data/share:/share'
+      - './webconfig.json:/.filebrowser.json'

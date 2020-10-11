@@ -1,0 +1,147 @@
+# Zulip chat server
+#
+#
+# Note: Zulip heavily depends on E-mail. Because we do not run E-mail, some changes (patches) are made:
+#  - Environment variable SETTING_OPEN_REALM_CREATION is set to true. This enables a 'New organisation' link on the login page.
+#  - To circumvent the need for confirmation mails, two patches are made in /home/zulip/deployments/current/zerver/views/registration.py
+#    These patches prevent the need for E-mail confirmation when creating a new organisation and when signing up.
+#    For patch details, see the 'registration.py-original' and 'registration.py-patched' files.
+#
+#
+# Configuration:
+#  - Change the passwords below! These are on github :)
+#  - Change SETTING_EXTERNAL_HOST (see below) to your public IP. Currently, this is set to localhost!
+#
+#
+# Initial setup:
+#  - Run this docker-compose (first start takes a while, see logs)
+#  - Add a new organisation (see link on bottom of login page). This also adds an admin account
+#  - As the admin, allow other users to sign up, go to settings
+#    - Select Manage organization.
+#    - On the left, click Organization permissions.
+#    - Find the section Joining the organization.
+#    - Set Are invitations required for joining the organization to No.
+#    - Set Restrict email domains of new users? to either Don't allow disposable email addresses (recommended) or No.
+#    - Click Save changes.
+#  - Now let users sign up through the login page.
+#
+#
+# TODO: Currently, this zulip only works from localhost because SETTING_EXTERNAL_HOST = 'localhost' (see configuration step above)
+#       Possible fix: https://stackoverflow.com/questions/29061026/using-the-host-ip-in-docker-compose
+
+version: '3'
+
+
+services:
+
+  zulip-database:
+    image: 'zulip/zulip-postgresql:10'
+    container_name: zulip-database
+    hostname: zulip-database
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: 'zulip'
+      POSTGRES_USER: 'zulip'
+      POSTGRES_PASSWORD: '1v2r7qHu8D2Gal)>v0DPcDrqLSg}HZQm'
+    volumes:
+      - '../../data/zulip/postgres:/var/lib/postgresql/data'
+
+  zulip-memcached:
+    image: 'memcached:1.6.7-alpine'
+    container_name: zulip-memcached
+    hostname: zulip-memcached
+    restart: unless-stopped
+    command:
+      - 'sh'
+      - '-euc'
+      - |
+        echo 'mech_list: plain' > "$$SASL_CONF_PATH"
+        echo "zulip@$$HOSTNAME:$$MEMCACHED_PASSWORD" > "$$MEMCACHED_SASL_PWDB"
+        echo "zulip@localhost:$$MEMCACHED_PASSWORD" >> "$$MEMCACHED_SASL_PWDB"
+        exec memcached -S
+    environment:
+      SASL_CONF_PATH: '/home/memcache/memcached.conf'
+      MEMCACHED_SASL_PWDB: '/home/memcache/memcached-sasl-db'
+      MEMCACHED_PASSWORD: 'WHJKXhX}522iY<U7sD4U[{FuU7QDvMmv'
+
+  zulip-rabbitmq:
+    image: 'rabbitmq:3.7.7'
+    container_name: zulip-rabbitmq
+    hostname: zulip-rabbitmq
+    restart: unless-stopped
+    environment:
+        RABBITMQ_DEFAULT_USER: 'zulip'
+        RABBITMQ_DEFAULT_PASS: 'md4soqAJSJrs[A55Nk4tis{z6TTe2HuQ'
+    volumes:
+      - '../../data/zulip/rabbitmq:/var/lib/rabbitmq'
+
+  zulip-redis:
+    image: 'redis:alpine3.12'
+    container_name: zulip-redis
+    hostname: zulip-redis
+    restart: unless-stopped
+    command:
+      - 'sh'
+      - '-euc'
+      - |
+        echo "requirepass '$$REDIS_PASSWORD'" > /etc/redis.conf
+        exec redis-server /etc/redis.conf
+    environment:
+      REDIS_PASSWORD: '1Lz)2g}Adp9THW)qzGotJuIdx4bodCFu'
+    volumes:
+      - '../../data/zulip/redis:/data'
+
+  zulip-core:
+    image: 'zulip/docker-zulip:3.2-0'
+    container_name: zulip-core
+    hostname: zulip-core
+    restart: unless-stopped
+    depends_on:
+      - zulip-database
+      - zulip-memcached
+      - zulip-rabbitmq
+      - zulip-redis
+    ports:
+      - '80:80'
+      - '443:443'
+    environment:
+      DB_HOST: 'zulip-database'
+      DB_HOST_PORT: '5432'
+      DB_USER: 'zulip'
+      SSL_CERTIFICATE_GENERATION: 'self-signed'
+      SETTING_MEMCACHED_LOCATION: 'zulip-memcached:11211'
+      SETTING_RABBITMQ_HOST: 'zulip-rabbitmq'
+      SETTING_REDIS_HOST: 'zulip-redis'
+      SECRETS_email_password: '123456789'
+      # These should match RABBITMQ_DEFAULT_PASS, POSTGRES_PASSWORD, MEMCACHED_PASSWORD, and REDIS_PASSWORD above.
+      SECRETS_rabbitmq_password: 'md4soqAJSJrs[A55Nk4tis{z6TTe2HuQ'
+      SECRETS_postgres_password: '1v2r7qHu8D2Gal)>v0DPcDrqLSg}HZQm'
+      SECRETS_memcached_password: 'WHJKXhX}522iY<U7sD4U[{FuU7QDvMmv'
+      SECRETS_redis_password: '1Lz)2g}Adp9THW)qzGotJuIdx4bodCFu'
+      SECRETS_secret_key: 'KHjY2M2Umobci<VsHGjof{M2G[x(vd]L'
+      SETTING_EXTERNAL_HOST: 'localhost'
+      SETTING_ZULIP_ADMINISTRATOR: 'admin@example.com'
+      SETTING_EMAIL_HOST: ''  # e.g. smtp.example.com
+      SETTING_EMAIL_HOST_USER: 'noreply@example.com'
+      SETTING_EMAIL_PORT: '587'
+      # It seems that the email server needs to use ssl or tls and can't be used without it
+      SETTING_EMAIL_USE_SSL: 'False'
+      SETTING_EMAIL_USE_TLS: 'True'
+      ZULIP_AUTH_BACKENDS: 'EmailAuthBackend'
+      #ZULIP_AUTH_BACKENDS: 'DevAuthBackend'
+      # Uncomment this when configuring the mobile push notifications service
+      # SETTING_PUSH_NOTIFICATION_BOUNCER_URL: 'https://push.zulipchat.com'
+
+      # Setting tweaking
+      # Adds the 'new organisation' link at bottom of login page
+      SETTING_OPEN_REALM_CREATION: 'True'
+      # All mail is sent to /var/log/zulip/django.log		cat /var/log/zulip/django.log | grep do_confirm
+      #SETTING_EMAIL_BACKEND: 'django.core.mail.backends.console.EmailBackend'
+    volumes:
+      - '../../data/zulip/zulip:/data'
+      # Patch registration so no E-mail is needed... :]
+      - './registration.py-patched:/home/zulip/deployments/current/zerver/views/registration.py'
+    ulimits:
+      nofile:
+        soft: 1000000
+        hard: 1048576

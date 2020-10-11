@@ -15,29 +15,38 @@
 # ETHERPAD_API_KEY: if file APIKEY.txt is missing, the variable value is used to provision it
 
 version: '3'
+
+
 services:
-  etherpad:
-    image: 'tvelocity/etherpad-lite'
-    restart: always
+
+  etherpad-core:
+    image: 'tvelocity/etherpad-lite:latest'
+    # This container doesnt seem to use version numbering
+    hostname: etherpad-core
+    container_name: etherpad-core
+    restart: unless-stopped
     ports:
       - '9001:9001'
     volumes:
-       - '/opt/netbase/modules/etherpad/plugins:/opt/etherpad-lite/node_modules'
+       - './plugins:/opt/etherpad-lite/node_modules'
     environment:
-      - ETHERPAD_DB_HOST=database
+      - ETHERPAD_DB_HOST=etherpad-db
       - ETHERPAD_DB_PASSWORD=QQDPB6vp9-WDhbdqIFZu3EzZmnN1y_-R
       - ETHERPAD_ADMIN_PASSWORD=admin
     depends_on:
-      - database
-  database:
+      - etherpad-db
+
+  etherpad-db:
     image: 'mysql:5'
 #    image: 'mysql'
 # Not using the default mysql image (currently 8.0) because it results in errors
 #    command: mysqld --default-authentication-plugin=mysql_native_password
-    restart: always
+    hostname: etherpad-db
+    container_name: etherpad-db
+    restart: unless-stopped
     ports:
       - '3306:3306'
     volumes:
-      - '/opt/netbase/data/etherpad:/var/lib/mysql'
+      - '../../data/etherpad:/var/lib/mysql'
     environment:
       - MYSQL_ROOT_PASSWORD=QQDPB6vp9-WDhbdqIFZu3EzZmnN1y_-R
