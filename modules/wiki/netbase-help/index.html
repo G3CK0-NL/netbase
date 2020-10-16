@@ -23,14 +23,15 @@
       }
     </style>
     <script language="javascript">
-      var ip = location.host;
-      document.write("<!-- ip = " + ip + " -->");
-      // Check for empty IP
-      if (ip == "")
-        ip = "&lt;your-ip&gt;";
-      // Check for port numbers
-      if (ip.includes(":"))
-        ip = ip.split(":", 1)[0];
+      //var ip = location.host;
+      //document.write("<!-- ip = " + ip + " -->");
+      //// Check for empty IP
+      //if (ip == "")
+      //  ip = "&lt;your-ip&gt;";
+      //// Check for port numbers
+      //if (ip.includes(":"))
+      //  ip = ip.split(":", 1)[0];
+      var ip = "netbase.local"
       function printLink(prefix, postfix) {
         link = prefix + ip + postfix;
         document.write("<a href=\"" + link + "\" target=\"_blank\">" + link + "</a>" );

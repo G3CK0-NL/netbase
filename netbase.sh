@@ -29,7 +29,7 @@ NETBASE_DATA="$NETBASE_BASE/data"
 # Use in compose file as: ${EXTERNAL_IP}
 export EXTERNAL_IP=$(ip route get 1.1.1.1 | grep -oP 'src \K\S+')
 # Netbase info page
-NETBASE_INFOPAGE="http://$EXTERNAL_IP:8080/netbase/"
+NETBASE_INFOPAGE="http://netbase.local:8080/netbase/"
 #
 #
 #####################################################################
@@ -61,7 +61,7 @@ find $NETBASE_MODULES -mindepth 1 -maxdepth 1 -type d -printf "%f\n" | while rea
   echo "Sending command '$DOCKER_COMPOSE_CMD' to module '$moduleName'..."
   # Make sure to delete any gitkeep files from the data directories
   # - shows up in services like shares
-  # - prevents postgres from starting
+  # - prevents multiple services from starting
   find "$NETBASE_DATA/$moduleName/" -name .gitkeep -type f -delete
   # Start the compose
   docker-compose -f "$NETBASE_MODULES/$moduleName/docker-compose.yml" $DOCKER_COMPOSE_CMD
@@ -81,4 +81,6 @@ echo
 
 # Done!
 echo "Done! Go to $NETBASE_INFOPAGE for more info."
+echo "Don't forget to add this line to your /etc/hosts file:"
+echo "$EXTERNAL_IP      netbase.local"
 echo

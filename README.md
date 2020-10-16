@@ -33,20 +33,24 @@ $ git clone https://github.com/G3CK0-NL/netbase.git
 ```
 $ sudo ./netbase.sh
 ```
+3. Add netbase to your `/etc/hosts` file:
+```
+your-ip       netbase.local
+```
 
 
 # Use
 After the installation, go to the NetBase landing page for more guidance:  
-`http://your-ip:8080/netbase/`
+http://netbase.local:8080/netbase/
 
 The following modules are at your disposal:
 
 * [File share](https://en.wikipedia.org/wiki/Samba_(software))
-  * Samba: `smb://your-ip` (anonymous access)
-  * Web: `http://your-ip:81`
+  * Samba: `smb://netbase.local` (anonymous access)
+  * Web: http://netbase.local:81
 * [Zulip](https://zulip.com/)
-  * `https://your-ip/` (will take some time at first startup).
-  * To setup Zulip: create a new organisation/admin at: `https://your-ip/new/`.
+  * https://netbase.local/ (will take some time at first startup).
+  * To setup Zulip: create a new organisation/admin at: https://netbase.local/new/.
     The use of verification E-mail (for both admins and users) is patched out, so you don't need to use any real addresses.
     Finally, allow mortal users to sign up through the main page:
     * Go to settings
@@ -57,12 +61,12 @@ The following modules are at your disposal:
     * Set `Restrict email domains of new users?` to `No`
     * Click 'Save changes'
 * [Wiki](https://www.dokuwiki.org/)
-  * `http://your-ip:8080` (admin credentials: admin:admin)
+  * http://netbase.local:8080 (admin credentials: admin:admin)
 * [Etherpad](https://etherpad.org/)
-  * `http://your-ip:9001`
-  * Admin login: `http://your-ip:9001/admin` (admin credentials: admin:admin)
+  * http://netbase.local:9001
+  * Admin login: http://netbase.local:9001/admin (admin credentials: admin:admin)
 * [Portainer](https://www.portainer.io/)
-  * `http://your-ip:9000`
+  * http://netbase.local:9000
 
 
 # How does it work?
