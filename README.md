@@ -5,9 +5,9 @@ Goal: to have a central place on the network where a team can collaborate, share
 NetBase contains modules like a Samba share and a wiki. All modules are available through a web-GUI for ease of access.
 Team members only have to bring a web browser to join in.
 
-**WARNING**: This software is built with small teams in mind: it is not tested for larger groups.
+**WARNING**: This software is built with maximum usability in mind, not with security: all passwords and access restrictions are disabled by default or can be found in the public GitHub repo!
 
-**WARNING**: This software is built with maximum usability in mind, not with security: all passwords and access restrictions are disabled by default.
+**WARNING**: This software is built with small teams in mind: it is not tested for larger groups.
 
 **NOTE**: This software is known to run correctly on the following operating systems:
 - [x] Ubuntu 20.04 LTS (64 bit)
