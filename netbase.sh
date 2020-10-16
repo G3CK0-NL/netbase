@@ -25,8 +25,11 @@
 NETBASE_BASE=$(dirname "$(readlink -f "$0")")
 NETBASE_MODULES="$NETBASE_BASE/modules"
 NETBASE_DATA="$NETBASE_BASE/data"
+# Make external IP on default route interface available for compose files
+# Use in compose file as: ${EXTERNAL_IP}
+export EXTERNAL_IP=$(ip route get 1.1.1.1 | grep -oP 'src \K\S+')
 # Netbase info page
-NETBASE_INFOPAGE="http://localhost:8080/netbase/"
+NETBASE_INFOPAGE="http://$EXTERNAL_IP:8080/netbase/"
 #
 #
 #####################################################################
@@ -48,12 +51,14 @@ if [ $# -ne 0 ]
   then
     DOCKER_COMPOSE_CMD="$@"
 fi
+
 echo "NetBase by G3CK0 - Executing command: '$DOCKER_COMPOSE_CMD' on all docker-compose files..."
 
-# Deploy modules to portainer
-echo "Deploying modules:"
+# Detect modules
+echo
+echo "Detecting modules:"
 find $NETBASE_MODULES -mindepth 1 -maxdepth 1 -type d -printf "%f\n" | while read moduleName; do
-  echo "Deploying '$moduleName'..."
+  echo "Sending command '$DOCKER_COMPOSE_CMD' to module '$moduleName'..."
   # Make sure to delete any gitkeep files from the data directories
   # - shows up in services like shares
   # - prevents postgres from starting
@@ -66,11 +71,14 @@ done
 echo
 echo "Current Docker state:"
 docker ps
+echo
 
 # Display IP addresses
-echo "IP address(es) of this machine:"
+echo "Main external IP is detected as: '$EXTERNAL_IP'. Some modules might not work if this is wrong..."
+echo "All IP address(es) of this machine:"
 ip addr show | grep -Po 'inet \K[\d.]+' | grep -v '127.0.0.1'
 echo
 
 # Done!
 echo "Done! Go to $NETBASE_INFOPAGE for more info."
+echo

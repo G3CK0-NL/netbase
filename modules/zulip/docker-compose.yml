@@ -8,12 +8,9 @@
 #    For patch details, see the 'registration.py-original' and 'registration.py-patched' files.
 #
 #
-# Configuration:
-#  - Change the passwords below! These are on github :)
-#  - Change SETTING_EXTERNAL_HOST (see below) to your public IP. Currently, this is set to localhost!
-#
-#
 # Initial setup:
+#  - Change the passwords below! These are on github :)
+#  - You might need to change SETTING_EXTERNAL_HOST (see below) to your public IP. Currently, this is autodetected.
 #  - Run this docker-compose (first start takes a while, see logs)
 #  - Add a new organisation (see link on bottom of login page). This also adds an admin account
 #  - As the admin, allow other users to sign up, go to settings
@@ -24,10 +21,6 @@
 #    - Set Restrict email domains of new users? to either Don't allow disposable email addresses (recommended) or No.
 #    - Click Save changes.
 #  - Now let users sign up through the login page.
-#
-#
-# TODO: Currently, this zulip only works from localhost because SETTING_EXTERNAL_HOST = 'localhost' (see configuration step above)
-#       Possible fix: https://stackoverflow.com/questions/29061026/using-the-host-ip-in-docker-compose
 
 version: '3'
 
@@ -119,7 +112,7 @@ services:
       SECRETS_memcached_password: 'WHJKXhX}522iY<U7sD4U[{FuU7QDvMmv'
       SECRETS_redis_password: '1Lz)2g}Adp9THW)qzGotJuIdx4bodCFu'
       SECRETS_secret_key: 'KHjY2M2Umobci<VsHGjof{M2G[x(vd]L'
-      SETTING_EXTERNAL_HOST: 'localhost'
+      SETTING_EXTERNAL_HOST: '${EXTERNAL_IP}'
       SETTING_ZULIP_ADMINISTRATOR: 'admin@example.com'
       SETTING_EMAIL_HOST: ''  # e.g. smtp.example.com
       SETTING_EMAIL_HOST_USER: 'noreply@example.com'
