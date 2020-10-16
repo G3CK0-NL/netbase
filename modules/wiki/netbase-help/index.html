@@ -24,8 +24,13 @@
     </style>
     <script language="javascript">
       var ip = location.host;
+      document.write("<!-- ip = " + ip + " -->");
+      // Check for empty IP
       if (ip == "")
         ip = "&lt;your-ip&gt;";
+      // Check for port numbers
+      if (ip.includes(":"))
+        ip = ip.split(":", 1)[0];
       function printLink(prefix, postfix) {
         link = prefix + ip + postfix;
         document.write("<a href=\"" + link + "\" target=\"_new\">" + link + "</a>" );
@@ -47,8 +52,22 @@
         Samba: <script>printLink("smb://", "");</script> (anonymous access)<br />
         Web: <script>printLink("http://", ":81");</script><br />
         <br />
+      <li>Collaboration (Zulip)<br />
+        <script>printLink("https://", "");</script> (first start takes some time)<br />
+        At first use, create a new organisation/admin: <script>printLink("https://", "/new/");</script><br />
+        Then allow mortal users to sign up through the main page:
+        <ul>
+          <li>Go to settings
+          <li>Select 'Manage organization'
+          <li>On the left, click 'Organization permissions'
+          <li>Find the section 'Joining the organization'
+          <li>Set 'Are invitations required for joining the organization' to No
+          <li>Set 'Restrict email domains of new users?' to No
+          <li>Click 'Save changes'
+        </ul>
+        <br />
       <li>Wiki (DocuWiki)<br />
-        <script>printLink("http://", "");</script> (credentials: admin:admin)<br />
+        <script>printLink("http://", ":8080");</script> (credentials: admin:admin)<br />
         <br />
       <li>Live editing (Etherpad)<br />
         <script>printLink("http://", ":9001");</script><br />
@@ -61,8 +80,6 @@
       <li>Docker control panel (Portainer)<br />
         <script>printLink("http://", ":9000");</script><br />
         <br />
-      <li>System control panel (Cockpit), if installed<br />
-        <script>printLink("https://", ":9090");</script> (credentials: use system creds)<br />
     </ul>
   </body>
 </html>

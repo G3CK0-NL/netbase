@@ -12,8 +12,8 @@ services:
     restart: unless-stopped
     user: root
     ports:
-      - '80:8080'
-      - '443:8443'
+      - '8080:8080'
+      - '8443:8443'
     volumes:
       - './netbase-help:/opt/bitnami/dokuwiki/netbase:ro'
       - '../../data/wiki:/bitnami/dokuwiki'
