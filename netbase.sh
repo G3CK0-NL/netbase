@@ -25,6 +25,7 @@
 NETBASE_BASE=$(dirname "$(readlink -f "$0")")
 NETBASE_MODULES="$NETBASE_BASE/modules"
 NETBASE_DATA="$NETBASE_BASE/data"
+NETBASE_MODULE_DISABLED_FLAGFILE="isdisabled"
 # Make external IP on default route interface available for compose files
 # Use in compose file as: ${EXTERNAL_IP}
 export EXTERNAL_IP=$(ip route get 1.1.1.1 | grep -oP 'src \K\S+')
@@ -56,15 +57,21 @@ echo "NetBase by G3CK0 - Executing command: '$DOCKER_COMPOSE_CMD' on all docker-
 
 # Detect modules
 echo
-echo "Detecting modules:"
+echo "Detecting modules..."
 find $NETBASE_MODULES -mindepth 1 -maxdepth 1 -type d -printf "%f\n" | while read moduleName; do
-  echo "Sending command '$DOCKER_COMPOSE_CMD' to module '$moduleName'..."
-  # Make sure to delete any gitkeep files from the data directories
-  # - shows up in services like shares
-  # - prevents multiple services from starting
-  find "$NETBASE_DATA/$moduleName/" -name .gitkeep -type f -delete
-  # Start the compose
-  docker-compose -f "$NETBASE_MODULES/$moduleName/docker-compose.yml" $DOCKER_COMPOSE_CMD
+  echo "#### Found module '$moduleName' ################################################################"
+  if [ -f "$NETBASE_MODULES/$moduleName/$NETBASE_MODULE_DISABLED_FLAGFILE" ]; then
+  	# Disabling flag file is found, ignore this module
+  	echo "Module '$moduleName' is disabled ('$NETBASE_MODULE_DISABLED_FLAGFILE' file exists in module directory). Ignoring..."
+  else
+    # Make sure to delete any gitkeep files from the data directories
+    # - shows up in services like shares
+    # - prevents multiple services from starting
+    find "$NETBASE_DATA/$moduleName/" -name .gitkeep -type f -delete
+    # Start the compose
+    echo "Sending command '$DOCKER_COMPOSE_CMD' to module '$moduleName'..."
+    docker-compose -f "$NETBASE_MODULES/$moduleName/docker-compose.yml" $DOCKER_COMPOSE_CMD
+  fi
 done
 
 # List result
