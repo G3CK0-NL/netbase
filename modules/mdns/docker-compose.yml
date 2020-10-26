@@ -1,7 +1,15 @@
 # NetBase mDNS module
 #
-# Make sure to stop avahi on the host:
-#    sudo service avahi-daemon stop
+# Make sure to stop and disable avahi on the host:
+#    sudo systemctl disable avahi-daemon
+#    sudo systemctl stop avahi-daemon
+#
+# If you receive:
+#    "Host name conflict, retrying with netbase-2"
+# Doublecheck that:
+#    - The avahi service on the host is stopped
+#    - There is only one ethernet device per lan
+#    - https://github.com/lathiat/avahi/issues/117
 #
 # Sources:
 #  - https://linux.die.net/man/5/avahi-daemon.conf
