@@ -85,7 +85,7 @@ NetBase is portable: it will run wherever you put it. The repo has the following
 * `modules/` - this folder contains all modules
   * `(module name)/` - a module folder, contains all information to deploy a module
     * `docker-compose.yml` - The [docker compose](https://docs.docker.com/compose) file that will deploy the Docker stack for this module.
-    * `isdisabled` - Optional flag file that indicates that this module is disabled. If this file exists, the `netbase.sh` management script does not call `docker-compose` for this module.
+    * `isdisabled` - Optional flag file to disable this module. If this file exists, `netbase.sh` does not call `docker-compose` for this module.
     * (any other configuration files needed for this module)
 * `data/` - this folder contains the data of all modules
   * `(module name)/` - a module data folder, contains any data for this module (for example the shared files of the file share module).
