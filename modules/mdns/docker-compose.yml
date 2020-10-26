@@ -1,0 +1,24 @@
+# NetBase mDNS module
+#
+# Make sure to stop avahi on the host:
+#    sudo service avahi-daemon stop
+#
+# Sources:
+#  - https://linux.die.net/man/5/avahi-daemon.conf
+#  - https://gitlab.com/ydkn/docker-avahi/
+
+version: '3'
+
+
+services:
+
+  mdns:
+    image: 'ydkn/avahi:latest'
+    # These guys do not do versioning. To force a new version, delete the old one:
+    # sudo docker image rm ydkn/avahi
+    hostname: mdns
+    container_name: mdns
+    restart: unless-stopped
+    network_mode: host
+    volumes:
+      - './avahi-daemon.conf:/etc/avahi/avahi-daemon.conf'
