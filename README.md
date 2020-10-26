@@ -9,13 +9,9 @@ Team members only have to bring a web browser to join in.
 
 **WARNING**: This software is built with small teams in mind: it is not tested for larger groups.
 
-**NOTE**: This software is known to run correctly on the following operating systems:
-- [x] Ubuntu 20.04 LTS (64 bit)
-- [x] Ubuntu 18.04 LTS (64 bit)
-- [x] Ubuntu 16.04 LTS (64 bit)
-
 
 # Installation
+The following steps need to be taken on the soon-to-be server:
 
 ### Prerequisites
 You need Docker and Docker Compose. On Debian-ish systems:
@@ -25,17 +21,22 @@ $ sudo systemctl enable --now docker
 ```
 
 ### Install NetBase
-1. Clone this repo to your target system:
+1. Clone this repo somewhere on the system:
 ```
 $ git clone https://github.com/G3CK0-NL/netbase.git
 ```
-2. Run the script (as root):
+2. Disable avahi:
+```
+$ sudo systemctl disable avahi-daemon
+$ sudo systemctl stop avahi-daemon
+```
+3. Run the script (as root):
 ```
 $ sudo ./netbase.sh
 ```
-3. Add netbase to your `/etc/hosts` file:
+4. For the `netbase.local` domain to work on the server itself: add it to the `/etc/hosts` file:
 ```
-your-ip       netbase.local
+<your-ip>       netbase.local
 ```
 
 
@@ -67,7 +68,8 @@ The following modules are at your disposal:
   * Admin login: http://netbase.local:9001/admin (admin credentials: admin:admin)
 * [Portainer](https://www.portainer.io/)
   * http://netbase.local:9000
-
+* [mDNS](https://en.wikipedia.org/wiki/Zero-configuration_networking#DNS-based_service_discovery)
+  * Used to make the `netbase.local` domain work across the local network.
 
 # How does it work?
 NetBase is using [Docker](https://www.docker.com) and [Portainer](https://portainer.io/) to provide a light-weight and easy to manage platform.
@@ -77,25 +79,26 @@ By default the script will start modules using the command: `docker-compose -f <
 You can also send different `docker-compose` commands (like `stop` or `restart`) by appending them to the script.
 For example: `sudo ./netbase.sh stop` will stop all modules. See the [docker-compose command-line reference](https://docs.docker.com/compose/reference/) for all options.
 
-### Docker 101
-An **image** is a 'blueprint' for a container. A **container** is software running within its own closed environment. Everytime you stop/restart a container, all changes within will be lost. You can use **volumes** to provide persistent data storage. A **service** defines how a container behaves in production. With a **stack** you can combine multiple services to a complete application. An apache web service + an MySQL database service = a web application.
-
 ### Directory structure
-NetBase is portable: it will run wherever you put it. The repo has the following content:
-* `modules/` - this folder contains all modules
-  * `(module name)/` - a module folder, contains all information to deploy a module
+NetBase is portable: it will run wherever you put it. The file structure is as follows:
+* `modules/` - This folder contains all modules.
+  * `(module name)/` - A module folder, contains all information to deploy a module.
     * `docker-compose.yml` - The [docker compose](https://docs.docker.com/compose) file that will deploy the Docker stack for this module.
-    * `isdisabled` - Optional flag file to disable this module. If this file exists, `netbase.sh` does not call `docker-compose` for this module.
+    * `isdisabled` - Optional file to disable this module (see below for more info).
     * (any other configuration files needed for this module)
-* `data/` - this folder contains the data of all modules
-  * `(module name)/` - a module data folder, contains any data for this module (for example the shared files of the file share module).
-* `netbase.sh` - the management script
-* `README.md` - This readme file
-* `LICENSE` - Legal stuff
+* `data/` - This folder contains the data of all modules.
+  * `(module name)/` - A module data folder, contains any data for this module (for example the shared files of the file share module).
+* `netbase.sh` - The management script.
+* `README.md` - This readme file.
+* `LICENSE` - Legal stuff.
+
+### Disabling modules
+To disable a module, add an `isdisabled` flag file to the module folder, next to the `docker-compose.yml` file. It can be empty or have any content.
+If this file exists, the `netbase.sh` script will ignore that module and will not call `docker-compose` for it.
 
 ### Problems with modules
 If any of the modules are not responding, use the Portainer interface to investigate what is going on: a container might have broken down. You can check the log of the broken container for clues. You can also just delete the container, it will be recreated automatically.
-To 'reset' any modules to a clean state: delete all files in the /opt/netbase/data/(module name)/ folder and restart the container(s) of the module using the Portainer interface. Be aware: deleting all files from the data/ folder deletes any data from that module (eg shared files or web content).
+To 'reset' any modules to a clean state: delete all files in the `data/(module name)/` folder and restart the container(s) of the module using the Portainer interface. Be aware: deleting all files from the `data` folder deletes any data from that module (eg shared files or web content).
 
 
 # Acknowledgements
@@ -106,4 +109,5 @@ Thanks to the hard work of:
 * Wiki: [bitnami/dokuwiki](https://hub.docker.com/r/bitnami/dokuwiki)
 * Etherpad: [tvelocity/etherpad-lite](https://hub.docker.com/r/tvelocity/etherpad-lite)
 * Portainer: [portainer/portainer](https://hub.docker.com/r/portainer/portainer)
+* mDNS: [ydkn/avahi](https://hub.docker.com/r/ydkn/avahi)
 * The open source community!
