@@ -68,9 +68,13 @@ find $NETBASE_MODULES -mindepth 1 -maxdepth 1 -type d -printf "%f\n" | while rea
     # - shows up in services like shares
     # - prevents multiple services from starting
     find "$NETBASE_DATA/$moduleName/" -name .gitkeep -type f -delete
+    # cd to module directory, to make sure .env file is used
+    cd "$NETBASE_MODULES/$moduleName"
     # Start the compose
     echo "Sending command '$DOCKER_COMPOSE_CMD' to module '$moduleName'..."
-    docker-compose -f "$NETBASE_MODULES/$moduleName/docker-compose.yml" $DOCKER_COMPOSE_CMD
+    docker-compose $DOCKER_COMPOSE_CMD
+    # cd back to root
+    cd ../..
   fi
 done
 
