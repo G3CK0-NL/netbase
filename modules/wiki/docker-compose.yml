@@ -13,7 +13,7 @@ services:
     user: root
     ports:
       - '8080:8080'
-      - '8443:8443'
+      #- '8443:8443'
     volumes:
       - './netbase-help:/opt/bitnami/dokuwiki/netbase:ro'
       - '../../data/wiki:/bitnami/dokuwiki'
