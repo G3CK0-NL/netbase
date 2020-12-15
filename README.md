@@ -49,7 +49,7 @@ The following modules are at your disposal:
 * [File share](https://en.wikipedia.org/wiki/Samba_(software))
   * Samba: `smb://netbase.local` (anonymous access)
   * Web: http://netbase.local:81
-* [Zulip](https://zulip.com/)
+* [Zulip](https://zulip.com/) collaboration platform
   * https://netbase.local/ (will take some time at first startup).
   * To setup Zulip: create a new organisation/admin at: https://netbase.local/new/.
     The use of verification E-mail (for both admins and users) is patched out, so you don't need to use any real addresses.
@@ -61,9 +61,11 @@ The following modules are at your disposal:
     * Set `Are invitations required for joining the organization` to `No`
     * Set `Restrict email domains of new users?` to `No`
     * Click 'Save changes'
+* [Jitsi](https://meet.jit.si/) videoconferencing
+  * https://netbase.local:8443
 * [Wiki](https://www.dokuwiki.org/)
   * http://netbase.local:8080 (admin credentials: admin:admin)
-* [Etherpad](https://etherpad.org/)
+* [Etherpad](https://etherpad.org/) live editing
   * http://netbase.local:9001
   * Admin login: http://netbase.local:9001/admin (admin credentials: admin:admin)
 * [Portainer](https://www.portainer.io/)
@@ -106,6 +108,7 @@ Thanks to the hard work of:
 * Docker: [docker](https://www.docker.com) and [docker-compose](https://docs.docker.com/compose)
 * File share: [dperson/samba](https://hub.docker.com/r/dperson/samba) and [filebrowser/filebrowser](https://hub.docker.com/r/filebrowser/filebrowser)
 * Zulip: [zulip/docker-zulip](https://hub.docker.com/r/zulip/docker-zulip)
+* Jitsi: [jitsi/web](https://hub.docker.com/r/jitsi/web)
 * Wiki: [bitnami/dokuwiki](https://hub.docker.com/r/bitnami/dokuwiki)
 * Etherpad: [tvelocity/etherpad-lite](https://hub.docker.com/r/tvelocity/etherpad-lite)
 * Portainer: [portainer/portainer](https://hub.docker.com/r/portainer/portainer)
