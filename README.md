@@ -88,8 +88,8 @@ The following modules are at your disposal:
 
 NetBase is using [Docker](https://www.docker.com) and [Portainer](https://portainer.io/) to provide a light-weight and easy to manage platform.
 This repository contains the NetBase management script (`netbase.sh`) and configuration files for all NetBase modules (basically Docker stacks).
-The script enumerates all module directories and will start the found modules using their `docker-compose.yml` files.
-By default the script will start modules using the command: `docker-compose -f <docker-compose-file> up -d`.
+The script is just a fancy for-loop, it enumerates all module directories and will start the found modules using their `docker-compose.yml` files.
+By default the script will start modules using the command: `docker-compose up -d`.
 You can also send different `docker-compose` commands (like `stop` or `restart`) by appending them to the script.
 For example: `sudo ./netbase.sh stop` will stop all modules. See the [docker-compose command-line reference](https://docs.docker.com/compose/reference/) for all options.
 
