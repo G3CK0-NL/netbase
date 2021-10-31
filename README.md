@@ -72,13 +72,16 @@ The following modules are at your disposal:
     * Set `Are invitations required for joining the organization` to `No`
     * Set `Restrict email domains of new users?` to `No`
     * Click 'Save changes'
-* [Jitsi](https://meet.jit.si/) videoconferencing
-  * <https://netbase.local:8443>
 * [Wiki](https://www.dokuwiki.org/)
-  * <http://netbase.local:8080> (admin credentials: admin:admin)
+  * <http://netbase.local:8080> (admin credentials: `admin:admin`)
 * [Etherpad](https://etherpad.org/) live editing
   * <http://netbase.local:9001>
-  * Admin login: <http://netbase.local:9001/admin> (admin credentials: admin:admin)
+  * Admin login: <http://netbase.local:9001/admin> (admin credentials: `admin:admin`)
+* [Jitsi](https://meet.jit.si/) videoconferencing
+  * <https://netbase.local:8443>
+* [GitLab](https://about.gitlab.com/)
+  * <http://netbase.local/>
+  * Admin user name is `root`, password is set on first access.
 * [CyberChef](https://github.com/gchq/CyberChef)
   * <http://netbase.local:8000>
 * [Draw.io](https://www.diagrams.net/)
@@ -145,6 +148,7 @@ Thanks to the hard work of:
 * Jitsi: [jitsi/web](https://hub.docker.com/r/jitsi/web)
 * Wiki: [bitnami/dokuwiki](https://hub.docker.com/r/bitnami/dokuwiki)
 * Etherpad: [tvelocity/etherpad-lite](https://hub.docker.com/r/tvelocity/etherpad-lite)
+* GitLab: [gitlab/gitlab-ce](https://hub.docker.com/r/gitlab/gitlab-ce)
 * CyberChef: [mpepping/cyberchef](https://hub.docker.com/r/mpepping/cyberchef)
 * DrawIO: [jgraph/drawio](https://hub.docker.com/r/jgraph/drawio)
 * Portainer: [portainer/portainer](https://hub.docker.com/r/portainer/portainer)

@@ -1,0 +1,31 @@
+# NetBase GitLab
+#
+# Admin user: root
+
+version: '3.5'
+
+
+services:
+
+  gitlab:
+    image: 'gitlab/gitlab-ce:12.10.6-ce.0'
+    hostname: gitlab
+    container_name: gitlab
+    restart: unless-stopped
+    environment:
+      GITLAB_OMNIBUS_CONFIG: |
+        external_url 'http://netbase.local'
+      # gitlab_rails['gitlab_shell_ssh_port'] = 2222
+      # This settings cannot be changed after initial install. Edit external_url/gitlab_rails in 'gitlab.rb' file.
+      # Then run: 'gitlab-ctl reconfigure' and 'gitlab-ctl restart' for changes to take effect.
+      #
+      # `gitlab_shell_ssh_port` is only used for displaying the correct git remote within the web GUI.
+      # It does not change the server port.
+    ports:
+      - '80:80'
+      #- '443:443'
+      - '22:22'
+    volumes:
+      - '../../data/gitlab/config:/etc/gitlab'
+      - '../../data/gitlab/logs:/var/log/gitlab'
+      - '../../data/gitlab/data:/var/opt/gitlab'
