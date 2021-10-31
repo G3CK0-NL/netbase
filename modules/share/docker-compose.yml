@@ -41,6 +41,8 @@ services:
       - SMB=true
       - USERID=1000
       - GROUPID=1000
+      # Some windows versions cannot handle anonymous access. You can login using user:user too.
+      - USER1=user;user
 
   share-web:
     image: 'filebrowser/filebrowser:v2.8.0-alpine'

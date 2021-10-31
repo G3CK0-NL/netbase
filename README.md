@@ -58,7 +58,7 @@ After the installation, go to the NetBase landing page for more guidance:
 The following modules are at your disposal:
 
 * [File share](https://en.wikipedia.org/wiki/Samba_(software))
-  * Samba: `smb://netbase.local` (anonymous access)
+  * Samba: `smb://netbase.local` (anonymous access, or use `user:user`)
   * Web: <http://netbase.local:81>
 * [Zulip](https://zulip.com/) collaboration platform
   * <https://netbase.local/> (will take some time at first startup).
