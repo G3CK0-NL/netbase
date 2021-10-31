@@ -1,0 +1,14 @@
+# NetBase cyberchef
+
+version: '3'
+
+
+services:
+
+  cyberchef:
+    image: 'mpepping/cyberchef:v9.32.3'
+    hostname: cyberchef
+    container_name: cyberchef
+    restart: unless-stopped
+    ports:
+      - '8000:8000'

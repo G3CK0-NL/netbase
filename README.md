@@ -79,6 +79,8 @@ The following modules are at your disposal:
 * [Etherpad](https://etherpad.org/) live editing
   * <http://netbase.local:9001>
   * Admin login: <http://netbase.local:9001/admin> (admin credentials: admin:admin)
+* [CyberChef](https://github.com/gchq/CyberChef)
+  * <http://netbase.local:8000>
 * [Portainer](https://www.portainer.io/)
   * <http://netbase.local:9000>
 * [mDNS](https://en.wikipedia.org/wiki/Zero-configuration_networking#DNS-based_service_discovery)
