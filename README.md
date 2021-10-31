@@ -81,6 +81,8 @@ The following modules are at your disposal:
   * Admin login: <http://netbase.local:9001/admin> (admin credentials: admin:admin)
 * [CyberChef](https://github.com/gchq/CyberChef)
   * <http://netbase.local:8000>
+* [Draw.io](https://www.diagrams.net/)
+  * <http://netbase.local:8084>
 * [Portainer](https://www.portainer.io/)
   * <http://netbase.local:9000>
 * [mDNS](https://en.wikipedia.org/wiki/Zero-configuration_networking#DNS-based_service_discovery)
@@ -143,6 +145,8 @@ Thanks to the hard work of:
 * Jitsi: [jitsi/web](https://hub.docker.com/r/jitsi/web)
 * Wiki: [bitnami/dokuwiki](https://hub.docker.com/r/bitnami/dokuwiki)
 * Etherpad: [tvelocity/etherpad-lite](https://hub.docker.com/r/tvelocity/etherpad-lite)
+* CyberChef: [mpepping/cyberchef](https://hub.docker.com/r/mpepping/cyberchef)
+* DrawIO: [jgraph/drawio](https://hub.docker.com/r/jgraph/drawio)
 * Portainer: [portainer/portainer](https://hub.docker.com/r/portainer/portainer)
 * mDNS: [ydkn/avahi](https://hub.docker.com/r/ydkn/avahi)
 * The open source community!

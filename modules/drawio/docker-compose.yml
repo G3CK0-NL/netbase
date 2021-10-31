@@ -1,0 +1,15 @@
+# NetBase draw.io
+
+version: '3'
+
+
+services:
+
+  drawio:
+    image: 'jgraph/drawio:15.6.3-alpine'
+    hostname: drawio
+    container_name: drawio
+    restart: unless-stopped
+    ports:
+      - '8084:8080'
+      #- '8443:8443'
