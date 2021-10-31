@@ -97,17 +97,17 @@ For example: `sudo ./netbase.sh stop` will stop all modules. See the [docker-com
 
 NetBase is portable: it will run wherever you put it. The file structure is as follows:
 
-* `modules/` - This folder contains all modules.
-  * `(module name)/` - A module folder, contains all information to deploy a module.
+* `modules/` - This directory contains all modules.
+  * `(module name)/` - A module directory, contains all information to deploy a module.
     * `docker-compose.yml` - The [docker compose](https://docs.docker.com/compose) file that will deploy the Docker stack for this module.
     * `isdisabled` - Optional file to disable this module (see below for more info).
     * `nobackup` - Optional file to disable backups for this module (see below for more info).
     * `.env`, etc - Optional Docker specific files.
     * (any other configuration files needed for this module)
-* `data/` - This folder contains the data of all modules.
-  * `(module name)/` - A module data folder, contains any data for this module (for example the shared files of the file share module).
-* `backups/` - This folder contains all backups (see below for more info).
-  * `(timestamp)/` - A backup folder, containing `tar` files per module.
+* `data/` - This directory contains the data of all modules.
+  * `(module name)/` - A module data directory, contains any data for this module (for example the shared files of the file share module).
+* `backups/` - This directory contains all backups (see below for more info).
+  * `(timestamp)/` - A backup directory, containing `tar` files per module.
 * `netbase.sh` - The main script.
 * `backup.sh` - The script that will create backups.
 * `README.md` - This readme file.
@@ -115,7 +115,7 @@ NetBase is portable: it will run wherever you put it. The file structure is as f
 
 ## Disabling modules
 
-To disable a module, add an `isdisabled` flag file to the module folder, next to the `docker-compose.yml` file. It can be empty or have any content.
+To disable a module, add an `isdisabled` flag file to the module directory, next to the `docker-compose.yml` file. It can be empty or have any content.
 If this file exists, the `netbase.sh` script will ignore that module and will not call `docker-compose` for it.
 
 ## Making backups
@@ -124,12 +124,12 @@ To make backups, the `backup.sh` script can be run. Every time it is run, it wil
 
 Next to this, all module definitions (without the data) are backed up to a file called `___modulesonly.tar`.
 
-To disable backups for any module, add a `nobackup` flag file to the module folder, next to the `docker-compose.yml` file. It can be empty or have any content. If this file exists, the `backup.sh` script will ignore that module and will not backup its data.
+To disable backups for any module, add a `nobackup` flag file to the module directory, next to the `docker-compose.yml` file. It can be empty or have any content. If this file exists, the `backup.sh` script will ignore that module and will not backup its data.
 
 ## Problems with modules
 
 If any of the modules are not responding, use the Portainer interface to investigate what is going on: a container might have broken down. You can check the log of the broken container for clues. You can also just delete the container, it will be recreated automatically.
-To 'reset' any modules to a clean state: delete all files in the `data/(module name)/` folder and restart the container(s) of the module using the Portainer interface. Be aware: deleting all files from the `data` folder deletes any data from that module (eg shared files or web content).
+To 'reset' any modules to a clean state: delete all files in the `data/(module name)/` directory and restart the container(s) of the module using the Portainer interface. Be aware: deleting all files from the `data` directory deletes any data from that module (eg shared files or web content).
 
 # Acknowledgements
 
