@@ -1,5 +1,8 @@
 # Ignore all data subdirs
 data/**/*
 !data/**/
+# And al backups
+backups/**/*
+backups/**/
 # But keep the folders itself
 !**/.gitkeep

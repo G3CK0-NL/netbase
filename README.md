@@ -101,11 +101,15 @@ NetBase is portable: it will run wherever you put it. The file structure is as f
   * `(module name)/` - A module folder, contains all information to deploy a module.
     * `docker-compose.yml` - The [docker compose](https://docs.docker.com/compose) file that will deploy the Docker stack for this module.
     * `isdisabled` - Optional file to disable this module (see below for more info).
+    * `nobackup` - Optional file to disable backups for this module (see below for more info).
     * `.env`, etc - Optional Docker specific files.
     * (any other configuration files needed for this module)
 * `data/` - This folder contains the data of all modules.
   * `(module name)/` - A module data folder, contains any data for this module (for example the shared files of the file share module).
-* `netbase.sh` - The management script.
+* `backups/` - This folder contains all backups (see below for more info).
+  * `(timestamp)/` - A backup folder, containing `tar` files per module.
+* `netbase.sh` - The main script.
+* `backup.sh` - The script that will create backups.
 * `README.md` - This readme file.
 * `LICENSE` - Legal stuff.
 
@@ -113,6 +117,14 @@ NetBase is portable: it will run wherever you put it. The file structure is as f
 
 To disable a module, add an `isdisabled` flag file to the module folder, next to the `docker-compose.yml` file. It can be empty or have any content.
 If this file exists, the `netbase.sh` script will ignore that module and will not call `docker-compose` for it.
+
+## Making backups
+
+To make backups, the `backup.sh` script can be run. Every time it is run, it will create a new directory in the `backups/` directory. This backup will contain a `tar` file for every module. This will contain both the module and the data directory for this module.
+
+Next to this, all module definitions (without the data) are backed up to a file called `___modulesonly.tar`.
+
+To disable backups for any module, add a `nobackup` flag file to the module folder, next to the `docker-compose.yml` file. It can be empty or have any content. If this file exists, the `backup.sh` script will ignore that module and will not backup its data.
 
 ## Problems with modules
 
